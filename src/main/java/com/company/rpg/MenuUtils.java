@@ -1,4 +1,4 @@
-package com.company.rpg.menu;
+package com.company.rpg;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -8,6 +8,10 @@ public class MenuUtils {
 
     public static BufferedReader inputReader = new BufferedReader(new InputStreamReader(System.in));
 
+    /**
+     * @param numberOfParameters
+     * @return
+     */
     public static int getSelection(int numberOfParameters) {
         int result = -1;
         try {
