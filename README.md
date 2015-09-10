@@ -13,7 +13,7 @@ Build
 ------
 Run below command from project root directory
 ```
-mvn clean compile assembly:single
+mvn clean package
 ```
 
 Running
