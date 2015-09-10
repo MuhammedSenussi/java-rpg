@@ -1,11 +1,9 @@
-package com.company.rpg.services.impl;
+package com.company.rpg.services.battle;
 
-import com.company.rpg.MenuUtils;
-import com.company.rpg.RandomUtil;
+import com.company.rpg.utils.RandomUtil;
 import com.company.rpg.model.Hero;
-import com.company.rpg.model.Monster;
-import com.company.rpg.services.BattleService;
-import com.company.rpg.services.CommandsReaderService;
+import com.company.rpg.model.NPC;
+import com.company.rpg.ui.TextUIController;
 
 import java.io.IOException;
 
@@ -14,16 +12,17 @@ import java.io.IOException;
  */
 public class BattleServiceImpl implements BattleService {
 
-    private CommandsReaderService commandsReaderService;
 
-    public BattleServiceImpl(CommandsReaderService commandsReaderService) {
-        this.commandsReaderService = commandsReaderService;
+    private TextUIController uiController;
+
+    public BattleServiceImpl(TextUIController uiController) {
+        this.uiController = uiController;
     }
 
-    public void battle(Hero hero, Monster monster) throws IOException {
+    public void battle(Hero hero, NPC monster) throws IOException {
         boolean readyToEscape = false;
-        int heroHealth = hero.getHealth();
-        int monsterHealth = monster.getHealth();
+        int heroHealth = hero.getCurrentHealth();
+        int monsterHealth = monster.getCurrentHealth();
         while (heroHealth > 0 && monsterHealth > 0 && !readyToEscape) {
             printMessage(hero.getName() + "'s health: " + heroHealth + " | " + monster.getName() + "'s Health: " + monsterHealth, false);
             System.out.println("");
@@ -34,7 +33,7 @@ public class BattleServiceImpl implements BattleService {
             System.out.println("3. Escape from battle");
             System.out.print(" > ");
 
-            int selection = MenuUtils.getSelection(3);
+            int selection = uiController.getSelection(3);
             //Player turn
             if (selection == 1) {
                 int monsterDodge = RandomUtil.nextInt(10) + 1;
@@ -53,7 +52,7 @@ public class BattleServiceImpl implements BattleService {
                 printMessage("You begin charging your attack!", false);
                 hero.increaseDamageOnOnePoint();
                 System.out.println("Press enter to continue...");
-                commandsReaderService.readInput();
+                uiController.readInput();
             } else if (selection == 3) {
                 int escapeChance = RandomUtil.nextInt(hero.getAgility());
                 int failChance = RandomUtil.nextInt(monster.getDefence());
@@ -63,14 +62,14 @@ public class BattleServiceImpl implements BattleService {
                     System.out.println("You successfully escape the " + monster.getName() + "!");
                     System.out.println("-------------------------------------------");
                     System.out.println("Press enter to continue...");
-                    commandsReaderService.readInput();
+                    uiController.readInput();
                     break;
                 } else {
                     System.out.println("----------------------------------");
                     System.out.println("You failed at escaping!");
                     System.out.println("----------------------------------");
                     System.out.println("Press enter to continue...");
-                    commandsReaderService.readInput();
+                    uiController.readInput();
                 }
 
             }
@@ -85,10 +84,10 @@ public class BattleServiceImpl implements BattleService {
                 if (monsterHitPlayer > 15) {
                     heroHealth -= monsterDamage;
                     printMessage(monster.getName() + " hits " + hero.getName() + " for " + monsterDamage + " damage!", true);
-                    commandsReaderService.readInput();
+                    uiController.readInput();
                 } else if (monsterHitPlayer <= 15) {
                     printMessage(monster.getName() + " misses " + hero.getName() + "!", true);
-                    commandsReaderService.readInput();
+                    uiController.readInput();
                 }
 
 
@@ -106,7 +105,7 @@ public class BattleServiceImpl implements BattleService {
             hero.addExp(monster.getExpCost());
             System.out.println("Press enter to continue...");
         }
-        commandsReaderService.readInput();
+        uiController.readInput();
     }
 
     private void printMessage(String message, boolean isNextMoveExpected) {

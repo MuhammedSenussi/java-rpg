@@ -3,7 +3,8 @@ package com.company.rpg.model;
 public class Hero {
 
     private String name;
-    private int health;
+    private int maxHealth;
+    private int currentHealth;
     private int experience;
     private int damage;
     private int defence;
@@ -11,7 +12,8 @@ public class Hero {
 
     public Hero(String name, int health, int experience, int damage, int defence, int agility) {
         this.name = name;
-        this.health = health;
+        this.maxHealth = health;
+        this.currentHealth = health;
         this.experience = experience;
         this.damage = damage;
         this.defence = defence;
@@ -26,12 +28,20 @@ public class Hero {
         this.name = name;
     }
 
-    public int getHealth() {
-        return health;
+    public int getMaxHealth() {
+        return maxHealth;
     }
 
-    public void setHealth(int health) {
-        this.health = health;
+    public void setMaxHealth(int maxHealth) {
+        this.maxHealth = maxHealth;
+    }
+
+    public int getCurrentHealth() {
+        return currentHealth;
+    }
+
+    public void setCurrentHealth(int currentHealth) {
+        this.currentHealth = currentHealth;
     }
 
     public int getExperience() {
@@ -82,7 +92,8 @@ public class Hero {
     public String toString() {
         return "Hero{" +
                 "name='" + name + '\'' +
-                ", health=" + health +
+                ", maxHealth=" + maxHealth +
+                ", currentHealth=" + currentHealth +
                 ", experience=" + experience +
                 ", damage=" + damage +
                 ", defence=" + defence +

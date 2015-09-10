@@ -1,9 +1,9 @@
-package com.company.rpg;
+package com.company.rpg.services.game;
 
 import com.company.rpg.model.Hero;
-import com.company.rpg.model.Monster;
-import com.company.rpg.services.BattleService;
-import com.company.rpg.services.CommandsReaderService;
+import com.company.rpg.model.NPC;
+import com.company.rpg.services.battle.BattleService;
+import com.company.rpg.ui.TextUIController;
 
 import java.io.IOException;
 
@@ -15,20 +15,20 @@ public class GameServiceImpl implements GameService {
 
     private BattleService battleService;
 
-    private CommandsReaderService commandsReaderService;
+    private TextUIController uiController;
 
-    public GameServiceImpl(BattleService battleService, CommandsReaderService commandsReaderService) {
+    public GameServiceImpl(BattleService battleService, TextUIController uiController) {
         this.battleService = battleService;
-        this.commandsReaderService = commandsReaderService;
+        this.uiController = uiController;
     }
 
     @Override
     public void startNewGame() throws IOException {
         System.out.println("What is your name?");
         System.out.print(" > ");
-        String name = commandsReaderService.readInput();
+        String name = uiController.readInput();
         Hero hero = new Hero(name, 100, 0, 10, 10, 5);
-        Monster goblin = new Monster("Goblin", 90, 0, 9, 9, 5, 100);
+        NPC goblin = new NPC("Goblin", 90, 0, 9, 9, 5, 100);
         battleService.battle(hero, goblin);
     }
 
@@ -40,5 +40,11 @@ public class GameServiceImpl implements GameService {
     @Override
     public void load() {
         System.out.println("Loading game....");
+    }
+
+    @Override
+    public void exit() {
+        System.out.println("Thanks for the game. Come back soon");
+        System.exit(0);
     }
 }

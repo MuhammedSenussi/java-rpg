@@ -1,10 +1,10 @@
 package com.company.rpg.model;
 
-public class Monster extends Hero {
+public class NPC extends Hero {
 
     private int expCost;
 
-    public Monster(String name, int health, int experience, int damage, int defence, int agility, int expCost) {
+    public NPC(String name, int health, int experience, int damage, int defence, int agility, int expCost) {
         super(name, health, experience, damage, agility, defence);
         this.expCost = expCost;
     }

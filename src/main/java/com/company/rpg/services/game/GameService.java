@@ -1,4 +1,4 @@
-package com.company.rpg;
+package com.company.rpg.services.game;
 
 import java.io.IOException;
 
@@ -21,4 +21,9 @@ public interface GameService {
      *
      */
     void load();
+
+    /**
+     *
+     */
+    void exit();
 }

@@ -1,4 +1,4 @@
-package com.company.rpg;
+package com.company.rpg.map;
 
 import java.util.Arrays;
 

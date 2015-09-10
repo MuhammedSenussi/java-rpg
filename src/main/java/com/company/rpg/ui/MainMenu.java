@@ -1,4 +1,7 @@
-package com.company.rpg;
+package com.company.rpg.ui;
+
+import com.company.rpg.services.game.GameService;
+import com.company.rpg.ui.TextUIController;
 
 import java.io.IOException;
 
@@ -6,8 +9,11 @@ public class MainMenu {
 
     private GameService gameService;
 
-    public MainMenu(GameService gameService) {
+    private TextUIController uiController;
+
+    public MainMenu(GameService gameService, TextUIController uiController) {
         this.gameService = gameService;
+        this.uiController = uiController;
     }
 
     public void printMainMenu() throws IOException {
@@ -20,7 +26,7 @@ public class MainMenu {
 //        System.out.println("4. Tutorial/Instructions/Etc");
         System.out.print(" > ");
 
-        int selection = MenuUtils.getSelection(4);
+        int selection = uiController.getSelection(4);
         if (1 == selection) {
             gameService.startNewGame();
         } else if (2 == selection) {
