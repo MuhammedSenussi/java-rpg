@@ -1,15 +1,24 @@
 package com.company.rpg.ui;
 
+import com.company.rpg.game.GameState;
+
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.util.List;
+import java.util.stream.Stream;
 
 public class TextUIController {
 
     private BufferedReader inputReader;
+    private GameState gameState;
 
-    public TextUIController() {
-        inputReader = new BufferedReader(new InputStreamReader(System.in));
+    public TextUIController(GameState gameState) {
+        this.inputReader = new BufferedReader(new InputStreamReader(System.in));
+        this.gameState = gameState;
     }
 
     /**
@@ -46,5 +55,45 @@ public class TextUIController {
         return inputReader.readLine();
     }
 
+    public void printInto() {
+        System.out.println("This is game into");
+    }
 
+    public void printMessage(String message) {
+        int msgLength = message.length();
+        printBorder(msgLength);
+        System.out.println(message);
+        printBorder(msgLength);
+    }
+
+    private void printBorder(int size) {
+        for (int i = 0; i < size; i++) {
+            System.out.print("-");
+        }
+        System.out.println("");
+    }
+
+    public void printIndexedList(List<String> list) {
+        for (int i = 0; i < list.size(); i++) {
+            System.out.println(i + 1 + ". " + list.get(i));
+        }
+    }
+
+    public Stream<String> loadConfigFile(String filePath) throws IOException {
+        Path path = Paths.get(filePath);
+        return Files.lines(path);
+    }
+
+    public void exitWithError(String message) {
+        System.err.print(message);
+        System.exit(-1);
+    }
+
+    public GameState getGameState() {
+        return gameState;
+    }
+
+    public void setGameState(GameState gameState) {
+        this.gameState = gameState;
+    }
 }

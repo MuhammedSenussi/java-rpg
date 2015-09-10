@@ -1,8 +1,9 @@
-package com.company.rpg.services.game;
+package com.company.rpg.game;
 
+import com.company.rpg.map.MapItemType;
 import com.company.rpg.model.Hero;
 import com.company.rpg.model.NPC;
-import com.company.rpg.services.battle.BattleService;
+import com.company.rpg.battle.BattleService;
 import com.company.rpg.ui.TextUIController;
 
 import java.io.IOException;
@@ -28,7 +29,7 @@ public class GameServiceImpl implements GameService {
         System.out.print(" > ");
         String name = uiController.readInput();
         Hero hero = new Hero(name, 100, 0, 10, 10, 5);
-        NPC goblin = new NPC("Goblin", 90, 0, 9, 9, 5, 100);
+        NPC goblin = new NPC("Goblin", 90, 0, 9, 9, 5, 100, MapItemType.MONSTER);
         battleService.battle(hero, goblin);
     }
 

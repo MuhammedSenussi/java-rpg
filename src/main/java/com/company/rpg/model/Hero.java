@@ -1,5 +1,7 @@
 package com.company.rpg.model;
 
+import com.company.rpg.map.Tile;
+
 public class Hero {
 
     private String name;
@@ -9,6 +11,7 @@ public class Hero {
     private int damage;
     private int defence;
     private int agility;
+    private Tile currentLocation;
 
     public Hero(String name, int health, int experience, int damage, int defence, int agility) {
         this.name = name;
@@ -86,6 +89,14 @@ public class Hero {
 
     public void increaseDamageOnOnePoint() {
         increaseDamage(1);
+    }
+
+    public Tile getCurrentLocation() {
+        return currentLocation;
+    }
+
+    public void setCurrentLocation(Tile currentLocation) {
+        this.currentLocation = currentLocation;
     }
 
     @Override

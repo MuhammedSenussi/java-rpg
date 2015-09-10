@@ -1,19 +1,27 @@
 package com.company.rpg.model;
 
-public class NPC extends Hero {
+import com.company.rpg.map.MapItem;
+import com.company.rpg.map.MapItemType;
 
-    private int expCost;
+public class NPC extends Hero implements MapItem {
 
-    public NPC(String name, int health, int experience, int damage, int defence, int agility, int expCost) {
+    private final int expCost;
+
+    private MapItemType type;
+
+    public NPC(String name, int health, int experience, int damage, int defence, int agility, int expCost,
+               MapItemType type) {
         super(name, health, experience, damage, agility, defence);
         this.expCost = expCost;
+        this.type = type;
     }
 
     public int getExpCost() {
         return expCost;
     }
 
-    public void setExpCost(int expCost) {
-        this.expCost = expCost;
+    @Override
+    public MapItemType getType() {
+        return type;
     }
 }

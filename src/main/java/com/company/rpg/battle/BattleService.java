@@ -1,4 +1,4 @@
-package com.company.rpg.services.battle;
+package com.company.rpg.battle;
 
 import com.company.rpg.model.Hero;
 import com.company.rpg.model.NPC;

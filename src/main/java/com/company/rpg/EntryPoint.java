@@ -1,5 +1,7 @@
 package com.company.rpg;
 
+import com.company.rpg.game.GameState;
+import com.company.rpg.ui.HeroSelectorController;
 import com.company.rpg.ui.TopicSelectorController;
 
 /**
@@ -11,8 +13,12 @@ import com.company.rpg.ui.TopicSelectorController;
 public class EntryPoint {
 
     public static void main(String[] args) {
-        TopicSelectorController topicSelectorService = new TopicSelectorController();
-        topicSelectorService.execute();
+        GameState gameState = new GameState();
+        TopicSelectorController topicSelectorService = new TopicSelectorController(gameState);
+        HeroSelectorController heroSelectorController = new HeroSelectorController(gameState);
+        topicSelectorService.select();
+        heroSelectorController.select();
+
 
 //        CommandsReaderService commandsReaderService = new CommandsReaderServiceImpl();
 //        BattleService battleService = new BattleServiceImpl(commandsReaderService);

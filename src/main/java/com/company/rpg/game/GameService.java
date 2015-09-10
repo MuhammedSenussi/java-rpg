@@ -1,4 +1,4 @@
-package com.company.rpg.services.game;
+package com.company.rpg.game;
 
 import java.io.IOException;
 

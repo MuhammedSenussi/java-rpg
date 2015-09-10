@@ -1,7 +1,6 @@
 package com.company.rpg.ui;
 
-import com.company.rpg.services.game.GameService;
-import com.company.rpg.ui.TextUIController;
+import com.company.rpg.game.GameService;
 
 import java.io.IOException;
 

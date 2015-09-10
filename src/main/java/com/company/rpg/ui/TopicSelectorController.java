@@ -1,20 +1,39 @@
 package com.company.rpg.ui;
 
+import com.company.rpg.game.GameState;
+
 import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.stream.Stream;
 
 public class TopicSelectorController extends TextUIController {
 
-    public void execute() {
-        Path path = Paths.get("assets/topics-list.txt");
-        try {
-            Stream<String> lines = Files.lines(path);
-            lines.forEach(s -> System.out.println(s));
-        } catch (IOException ex) {
-
-        }
+    public TopicSelectorController(GameState gameState) {
+        super(gameState);
     }
+
+    public String select() {
+        String topic = "";
+        List<String> topics = new ArrayList<>();
+        try {
+            Stream<String> lines = loadConfigFile("assets/topics_list.txt");
+            lines.forEach(s -> topics.add(s));
+            printInto();
+            printMessage("Please select game topic");
+            printIndexedList(topics);
+            System.out.print("> ");
+            int selection = getSelection(topics.size());
+            topic = topics.get(selection - 1);
+        } catch (IOException ex) {
+            exitWithError("Could not load topics.txt file. Please verify that 'assets/topics.txt file exist");
+        }
+        if (topic == null || topic.isEmpty()) {
+            exitWithError("Could not load topics.txt file. Please verify that 'assets/topics.txt file exist");
+        }
+        System.out.println("You selected: " + topic);
+        getGameState().setTopic(topic);
+        return topic;
+    }
+
 }
