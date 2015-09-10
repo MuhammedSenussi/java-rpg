@@ -18,7 +18,12 @@ mvn clean package
 
 Running
 --------
-
+To run the game follow next steps:
+1. Make sure that 'assets' folder is exist next to the 'rpg.jar'
+2. Execute next command in terminal/cmd from the directory where rpg.jar file and assets directory exist
+```
+java -jar rpg.jar
+```
 
  
 
