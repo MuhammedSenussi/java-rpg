@@ -1,16 +1,16 @@
 package com.company.rpg.model;
 
-import com.company.rpg.map.MapItem;
-import com.company.rpg.map.MapItemType;
+import com.company.rpg.map.LocationItem;
+import com.company.rpg.map.LocationType;
 
-public class NPC extends Hero implements MapItem {
+public class NPC extends Hero implements LocationItem {
 
     private final int expCost;
 
-    private MapItemType type;
+    private LocationType type;
 
     public NPC(String name, int health, int experience, int damage, int defence, int agility, int expCost,
-               MapItemType type) {
+               LocationType type) {
         super(name, health, experience, damage, agility, defence);
         this.expCost = expCost;
         this.type = type;
@@ -21,7 +21,7 @@ public class NPC extends Hero implements MapItem {
     }
 
     @Override
-    public MapItemType getType() {
+    public LocationType getType() {
         return type;
     }
 }

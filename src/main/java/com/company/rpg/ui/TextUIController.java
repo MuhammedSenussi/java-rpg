@@ -14,11 +14,9 @@ import java.util.stream.Stream;
 public class TextUIController {
 
     private BufferedReader inputReader;
-    private GameState gameState;
 
-    public TextUIController(GameState gameState) {
+    public TextUIController() {
         this.inputReader = new BufferedReader(new InputStreamReader(System.in));
-        this.gameState = gameState;
     }
 
     /**
@@ -87,13 +85,5 @@ public class TextUIController {
     public void exitWithError(String message) {
         System.err.print(message);
         System.exit(-1);
-    }
-
-    public GameState getGameState() {
-        return gameState;
-    }
-
-    public void setGameState(GameState gameState) {
-        this.gameState = gameState;
     }
 }

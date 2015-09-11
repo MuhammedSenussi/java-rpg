@@ -1,8 +1,8 @@
 package com.company.rpg.model;
 
-import com.company.rpg.map.Tile;
+import java.io.Serializable;
 
-public class Hero {
+public class Hero implements Serializable {
 
     private String name;
     private int maxHealth;
@@ -11,7 +11,6 @@ public class Hero {
     private int damage;
     private int defence;
     private int agility;
-    private Tile currentLocation;
 
     public Hero(String name, int health, int experience, int damage, int defence, int agility) {
         this.name = name;
@@ -89,14 +88,6 @@ public class Hero {
 
     public void increaseDamageOnOnePoint() {
         increaseDamage(1);
-    }
-
-    public Tile getCurrentLocation() {
-        return currentLocation;
-    }
-
-    public void setCurrentLocation(Tile currentLocation) {
-        this.currentLocation = currentLocation;
     }
 
     @Override

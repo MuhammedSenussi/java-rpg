@@ -12,7 +12,6 @@ import java.io.IOException;
  */
 public class BattleServiceImpl implements BattleService {
 
-
     private TextUIController uiController;
 
     public BattleServiceImpl(TextUIController uiController) {

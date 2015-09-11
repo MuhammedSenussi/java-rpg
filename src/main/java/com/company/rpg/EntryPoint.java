@@ -1,8 +1,16 @@
 package com.company.rpg;
 
+import com.company.rpg.battle.BattleService;
+import com.company.rpg.battle.BattleServiceImpl;
+import com.company.rpg.game.GameService;
+import com.company.rpg.game.GameServiceImpl;
 import com.company.rpg.game.GameState;
 import com.company.rpg.ui.HeroSelectorController;
+import com.company.rpg.ui.MainMenu;
+import com.company.rpg.ui.TextUIController;
 import com.company.rpg.ui.TopicSelectorController;
+
+import java.io.IOException;
 
 /**
  * Main entry point of the application
@@ -13,16 +21,14 @@ import com.company.rpg.ui.TopicSelectorController;
 public class EntryPoint {
 
     public static void main(String[] args) {
-        GameState gameState = new GameState();
-        TopicSelectorController topicSelectorService = new TopicSelectorController(gameState);
-        HeroSelectorController heroSelectorController = new HeroSelectorController(gameState);
-        topicSelectorService.select();
-        heroSelectorController.select();
+        GameService gameService = new GameServiceImpl();
+        MainMenu mainMenu = new MainMenu(gameService);
+        try {
+            mainMenu.printMainMenu();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
 
-
-//        CommandsReaderService commandsReaderService = new CommandsReaderServiceImpl();
-//        BattleService battleService = new BattleServiceImpl(commandsReaderService);
-//        GameServiceImpl gameService = new GameServiceImpl(battleService, commandsReaderService);
 //        MainMenu mainMenu = new MainMenu(gameService);
 //        try {
 //            mainMenu.printMainMenu();

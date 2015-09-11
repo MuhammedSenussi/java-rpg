@@ -12,4 +12,8 @@ public class RandomUtil {
     public static int nextInt(int base) {
         return random.nextInt(base);
     }
+
+    public static int nextIntInRange(int min, int max) {
+        return random.nextInt((max - min) + 1) + min;
+    }
 }

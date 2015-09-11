@@ -1,6 +1,6 @@
 package com.company.rpg.map;
 
-public enum MapItemType {
+public enum LocationType {
 
     EMPTY, MONSTER, EXPIRIENCE_STONE
 }
