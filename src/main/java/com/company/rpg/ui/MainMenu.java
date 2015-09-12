@@ -12,7 +12,7 @@ public class MainMenu {
         this.gameService = gameService;
     }
 
-    public void printMainMenu() throws IOException {
+    public void printMainMenu() {
         System.out.println("Main Menu");
         System.out.println("1. Start new game");
         System.out.println("2. Load game");

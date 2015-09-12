@@ -9,11 +9,14 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.List;
+import java.util.Scanner;
 import java.util.stream.Stream;
 
 public class TextUIController {
 
     private BufferedReader inputReader;
+
+    Scanner scanner = new Scanner(System.in);
 
     public TextUIController() {
         this.inputReader = new BufferedReader(new InputStreamReader(System.in));
@@ -49,8 +52,9 @@ public class TextUIController {
         return result;
     }
 
-    public String readInput() throws IOException {
-        return inputReader.readLine();
+    public String readInput() {
+//        return inputReader.readLine();
+        return scanner.nextLine();
     }
 
     public void printInto() {

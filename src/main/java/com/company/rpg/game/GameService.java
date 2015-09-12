@@ -12,7 +12,7 @@ public interface GameService {
     /**
      *
      */
-    void startNewGame() throws IOException;
+    void startNewGame();
 
     /**
      *

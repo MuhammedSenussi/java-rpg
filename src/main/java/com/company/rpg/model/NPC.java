@@ -1,27 +1,17 @@
 package com.company.rpg.model;
 
-import com.company.rpg.map.LocationItem;
-import com.company.rpg.map.LocationType;
+import com.company.rpg.map.locations.LocationItem;
 
 public class NPC extends Hero implements LocationItem {
 
     private final int expCost;
 
-    private LocationType type;
-
-    public NPC(String name, int health, int experience, int damage, int defence, int agility, int expCost,
-               LocationType type) {
+    public NPC(String name, int health, int experience, int damage, int defence, int agility, int expCost) {
         super(name, health, experience, damage, agility, defence);
         this.expCost = expCost;
-        this.type = type;
     }
 
     public int getExpCost() {
         return expCost;
-    }
-
-    @Override
-    public LocationType getType() {
-        return type;
     }
 }

@@ -27,7 +27,7 @@ public class GameServiceImpl implements GameService {
     }
 
     @Override
-    public void startNewGame() throws IOException {
+    public void startNewGame() {
         gameState = new GameState();
         TopicSelectorController topicSelectorService = new TopicSelectorController(uiController, gameState);
         HeroSelectorController heroSelectorController = new HeroSelectorController(uiController, gameState);

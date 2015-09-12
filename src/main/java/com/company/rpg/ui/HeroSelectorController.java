@@ -1,8 +1,6 @@
 package com.company.rpg.ui;
 
 import com.company.rpg.game.GameState;
-import com.company.rpg.map.EmptyLocation;
-import com.company.rpg.map.Location;
 import com.company.rpg.model.Hero;
 import com.company.rpg.utils.RandomUtil;
 

@@ -1,4 +1,4 @@
-package com.company.rpg.map;
+package com.company.rpg.map.locations;
 
 public enum LocationType {
 

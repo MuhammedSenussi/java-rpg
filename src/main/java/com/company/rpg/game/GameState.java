@@ -1,6 +1,6 @@
 package com.company.rpg.game;
 
-import com.company.rpg.map.Location;
+import com.company.rpg.map.locations.Location;
 import com.company.rpg.model.Hero;
 
 import java.io.Serializable;
