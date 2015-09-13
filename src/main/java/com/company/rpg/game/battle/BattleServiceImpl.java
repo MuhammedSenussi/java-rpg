@@ -2,32 +2,30 @@ package com.company.rpg.game.battle;
 
 import com.company.rpg.model.NPC;
 import com.company.rpg.model.Player;
+import com.company.rpg.ui.menu.AbstractMenu;
+import com.company.rpg.ui.menu.BattleMenu;
 import com.company.rpg.utils.RandomUtil;
-
-import java.io.IOException;
 
 /**
  * Created by karmanov on 9/7/15.
  */
 public class BattleServiceImpl implements BattleService {
 
+    private AbstractMenu menu;
 
-    public void battle(Player hero, NPC monster) throws IOException {
+    public BattleServiceImpl() {
+        menu = new BattleMenu();
+    }
+
+    public void battle(Player hero, NPC monster) {
         boolean readyToEscape = false;
         int heroHealth = hero.getCurrentHealth();
         int monsterHealth = monster.getCurrentHealth();
         while (heroHealth > 0 && monsterHealth > 0 && !readyToEscape) {
             printMessage(hero.getName() + "'s health: " + heroHealth + " | " + monster.getName() + "'s Health: " + monsterHealth, false);
-            System.out.println("");
-            System.out.println("What would you like to do?");
-            System.out.println("");
-            System.out.println("1. Attack " + monster.getName());
-            System.out.println("2. Charge Attack");
-            System.out.println("3. Escape from battle");
-            System.out.print(" > ");
+            menu.showMenu();
+            int selection = menu.getSelectionIndex();
 
-//            int selection = uiController.getSelection(3);
-            int selection = 0;
             //Player turn
             if (selection == 1) {
                 int monsterDodge = RandomUtil.nextInt(10) + 1;
@@ -46,7 +44,6 @@ public class BattleServiceImpl implements BattleService {
                 printMessage("You begin charging your attack!", false);
                 hero.increaseDamageOnOnePoint();
                 System.out.println("Press enter to continue...");
-//                uiController.readInput();
             } else if (selection == 3) {
                 int escapeChance = RandomUtil.nextInt(hero.getAgility());
                 int failChance = RandomUtil.nextInt(monster.getDefence());
@@ -56,14 +53,12 @@ public class BattleServiceImpl implements BattleService {
                     System.out.println("You successfully escape the " + monster.getName() + "!");
                     System.out.println("-------------------------------------------");
                     System.out.println("Press enter to continue...");
-//                    uiController.readInput();
                     break;
                 } else {
                     System.out.println("----------------------------------");
                     System.out.println("You failed at escaping!");
                     System.out.println("----------------------------------");
                     System.out.println("Press enter to continue...");
-//                    uiController.readInput();
                 }
 
             }
@@ -78,10 +73,8 @@ public class BattleServiceImpl implements BattleService {
                 if (monsterHitPlayer > 15) {
                     heroHealth -= monsterDamage;
                     printMessage(monster.getName() + " hits " + hero.getName() + " for " + monsterDamage + " damage!", true);
-//                    uiController.readInput();
                 } else if (monsterHitPlayer <= 15) {
                     printMessage(monster.getName() + " misses " + hero.getName() + "!", true);
-//                    uiController.readInput();
                 }
 
 
@@ -99,7 +92,6 @@ public class BattleServiceImpl implements BattleService {
             hero.addExp(monster.getExpCost());
             System.out.println("Press enter to continue...");
         }
-//        uiController.readInput();
     }
 
     private void printMessage(String message, boolean isNextMoveExpected) {

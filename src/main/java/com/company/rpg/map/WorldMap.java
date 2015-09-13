@@ -2,8 +2,12 @@ package com.company.rpg.map;
 
 import com.company.rpg.map.locations.EmptyLocation;
 import com.company.rpg.map.locations.Location;
+import com.company.rpg.map.locations.MonsterLocation;
+import com.company.rpg.model.NPC;
 
-public class WorldMap {
+import java.io.Serializable;
+
+public class WorldMap implements Serializable {
 
     private static final String MAP_WHITESPACE = "     ";
 
@@ -16,8 +20,8 @@ public class WorldMap {
         this.map = new Location[mapSize][mapSize];
     }
 
-    public void printMap(Location currentLocation) {
-        System.out.println("            Map of MapRuntimeException's world");
+    public void printMap(Location currentLocation, String topic) {
+        System.out.println("Map of " + topic + "'s world");
         printBorder();
         System.out.println();
         for (int i = 0; i < map.length; i++) {
@@ -28,6 +32,7 @@ public class WorldMap {
                     System.out.print(map[i][j].getMapMarker().getMarker() + MAP_WHITESPACE);
                 }
             }
+            System.out.println();
             System.out.println();
         }
         printBorder();
@@ -44,16 +49,39 @@ public class WorldMap {
     public void init() {
         for (int i = 0; i < mapSize; i++) {
             for (int j = 0; j < mapSize; j++) {
-                map[i][j] = new EmptyLocation("This is start point", i, j);
+                if (i == 0 && j == 0) {
+                    NPC monster = new NPC("Super monster", 90, 100, 10, 10, 10, 50);
+                    map[i][j] = new MonsterLocation("This is monster location", i, j, monster);
+                } else {
+                    map[i][j] = new EmptyLocation("This is start point", i, j);
+                }
+
             }
         }
+    }
+
+    public boolean isAllLocationsOpened() {
+        for (int i = 0; i < map.length; i++) {
+            for (int j = 0; j < map.length; j++) {
+                Location location = map[i][j];
+                if (!location.isOpened()) {
+                    return false;
+                }
+
+            }
+        }
+        return true;
+    }
+
+    public Location getLocation(int x, int y) {
+        return map[x][y];
     }
 
     public Location move(Location location, Direction direction) {
         int x = location.getX();
         int y = location.getY();
         if (Direction.EAST.equals(direction)) {
-            if (location.getY() == mapSize) {
+            if (y == mapSize - 1) {
                 printError();
             } else {
                 map[x][y].setIsOpened(true);
@@ -61,7 +89,7 @@ public class WorldMap {
                 y++;
             }
         } else if (Direction.WEST.equals(direction)) {
-            if (location.getY() == 0) {
+            if (y == 0) {
                 printError();
             } else {
                 map[x][y].setIsOpened(true);
@@ -70,7 +98,7 @@ public class WorldMap {
             }
 
         } else if (Direction.NORTH.equals(direction)) {
-            if (location.getX() == 0) {
+            if (x == 0) {
                 printError();
             } else {
                 map[x][y].setIsOpened(true);
@@ -78,7 +106,7 @@ public class WorldMap {
                 x--;
             }
         } else if (Direction.SOUTH.equals(direction)) {
-            if (location.getX() == mapSize) {
+            if (x == mapSize - 1) {
                 printError();
             } else {
                 map[x][y].setIsOpened(true);

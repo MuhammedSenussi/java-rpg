@@ -1,10 +1,19 @@
 package com.company.rpg.model;
 
+import com.company.rpg.map.WorldMap;
 import com.company.rpg.map.locations.Location;
 import com.company.rpg.model.Player;
 
 import java.io.Serializable;
 
+/**
+ * Contains all main parameters of the current game, such as
+ * selected topic, player, player's current location and state of the world
+ * User for saving and restoring the game
+ *
+ * @author Dmitriy Kamranov
+ * @since 1.0
+ */
 public class GameContext implements Serializable {
 
     private String topic;
@@ -12,6 +21,8 @@ public class GameContext implements Serializable {
     private Player player;
 
     private Location currentLocation;
+
+    private WorldMap worldMap;
 
     public Player getPlayer() {
         return player;
@@ -35,6 +46,14 @@ public class GameContext implements Serializable {
 
     public void setCurrentLocation(Location currentLocation) {
         this.currentLocation = currentLocation;
+    }
+
+    public WorldMap getWorldMap() {
+        return worldMap;
+    }
+
+    public void setWorldMap(WorldMap worldMap) {
+        this.worldMap = worldMap;
     }
 
     @Override

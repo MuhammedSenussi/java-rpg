@@ -9,5 +9,5 @@ package com.company.rpg.ui;
  */
 public enum CommonCommands {
 
-    NORTH, SOUTH, WEST, EAST, SAVE, EXIT, LOAD, MAP
+    NORTH, SOUTH, WEST, EAST, SAVE, EXIT, LOAD, MAP, FIGHT
 }
