@@ -25,17 +25,17 @@ public class GamePlayController {
 
     private boolean isGameOver;
 
-    public GamePlayController(GameContextRepository gameContextRepository) {
-        this.gameContextRepository = gameContextRepository;
+    public GamePlayController() {
+        this.gameContextRepository = new GameContextRepository();
         this.topicMenu = new TopicMenu();
         this.playerMenu = new PlayerMenu(gameContextRepository.getGameContext());
     }
 
-    @Override
     public void play() {
         gameContextRepository.getGameContext().setTopic(selectTopic());
         Player player = createPlayer();
         gameContextRepository.getGameContext().setPlayer(player);
+        initMap();
         while (!isGameOver) {
             showLocationInfo();
             executeCommand(gameContextRepository.getGameContext().getCurrentLocation());
@@ -71,14 +71,19 @@ public class GamePlayController {
     }
 
     private void printMap() {
+//        initMap();
+        worldMap.printMap(gameContextRepository.getGameContext().getCurrentLocation());
+    }
+
+    private void initMap() {
         if (worldMap == null) {
             worldMap = new WorldMap(10);
             worldMap.init();
             Location currentLocation = new EmptyLocation("This is start point", 0, 0);
             gameContextRepository.getGameContext().setCurrentLocation(currentLocation);
         }
-        worldMap.printMap(gameContextRepository.getGameContext().getCurrentLocation());
     }
+
 
     private void executeCommand(Location location) {
         int selectionIndex = location.getLocationMenu().getSelectionIndex();

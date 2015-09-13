@@ -1,8 +1,11 @@
 package com.company.rpg.map.locations;
 
 import com.company.rpg.map.MapMarker;
+import com.company.rpg.ui.menu.AbstractMenu;
 
-public abstract class Location {
+import java.io.Serializable;
+
+public abstract class Location implements Serializable {
 
     private String name;
     private String description;
@@ -11,6 +14,7 @@ public abstract class Location {
     private int x;
     private int y;
     private MapMarker mapMarker;
+    private boolean isOpened;
 
     public Location(String name, String description, LocationItem locationItem, LocationType locationType,
                     int x, int y, MapMarker mapMarker) {
@@ -22,6 +26,10 @@ public abstract class Location {
         this.y = y;
         this.mapMarker = mapMarker;
     }
+
+    public abstract void printLocationInfo();
+
+    public abstract AbstractMenu getLocationMenu();
 
     public String getName() {
         return name;
@@ -72,10 +80,22 @@ public abstract class Location {
     }
 
     public MapMarker getMapMarker() {
-        return mapMarker;
+        if (isOpened) {
+            return mapMarker;
+        } else {
+            return MapMarker.CLOSED;
+        }
     }
 
     public void setMapMarker(MapMarker mapMarker) {
         this.mapMarker = mapMarker;
+    }
+
+    public boolean isOpened() {
+        return isOpened;
+    }
+
+    public void setIsOpened(boolean isOpened) {
+        this.isOpened = isOpened;
     }
 }

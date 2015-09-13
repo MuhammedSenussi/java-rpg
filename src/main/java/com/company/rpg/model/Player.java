@@ -92,15 +92,11 @@ public class Player implements Serializable {
 
     @Override
     public String toString() {
-        //TODO update this to be more beautiful
-        return "Hero{" +
-                "name='" + name + '\'' +
-                ", maxHealth=" + maxHealth +
-                ", currentHealth=" + currentHealth +
-                ", experience=" + experience +
-                ", damage=" + damage +
-                ", defence=" + defence +
-                ", agility=" + agility +
-                '}';
+        return name + "'s Statistics: " +
+                "\n Health:     " + currentHealth + "/" + maxHealth +
+                "\n Experience: " + experience +
+                "\n Damage:     " + damage +
+                "\n Defence:    " + defence +
+                "\n Agility:    " + agility;
     }
 }

@@ -1,13 +1,9 @@
 package com.company.rpg;
 
-import com.company.rpg.game.GameService;
-import com.company.rpg.game.GameServiceImpl;
-import com.company.rpg.map.Direction;
-import com.company.rpg.map.MapMarker;
-import com.company.rpg.map.WorldMap;
-import com.company.rpg.map.locations.EmptyLocation;
-import com.company.rpg.map.locations.Location;
-import com.company.rpg.ui.MainMenu;
+import com.company.rpg.game.GamePlayController;
+import com.company.rpg.ui.CommonCommandsExecutor;
+import com.company.rpg.ui.menu.MainMenu;
+import com.company.rpg.ui.menu.Menu;
 
 /**
  * Main entry point of the application
@@ -18,36 +14,29 @@ import com.company.rpg.ui.MainMenu;
 public class EntryPoint {
 
     public static void main(String[] args) {
-//        GameService gameService = new GameServiceImpl();
-//        MainMenu mainMenu = new MainMenu(gameService);
-//        mainMenu.printMainMenu();
+        printBanner();
+        Menu mainMenu = new MainMenu();
+        mainMenu.showMenu();
+        int selectionIndex = mainMenu.getSelectionIndex();
+        if (1 == selectionIndex) {
+            GamePlayController gamePlayController = new GamePlayController();
+            gamePlayController.play();
+        } else if (2 == selectionIndex) {
+            CommonCommandsExecutor.load();
+        } else if (3 == selectionIndex) {
+            CommonCommandsExecutor.exit();
+        } else if (4 == selectionIndex) {
+            System.out.println("User's manual will be there");
+        }
 
-        Location startLocation = new EmptyLocation("This is start point", 0, 0);
-        startLocation.setMapMarker(MapMarker.PLAYER);
-        WorldMap worldMap = new WorldMap(10);
-        worldMap.init();
-        worldMap.printMap(startLocation);
-
-
-        startLocation = worldMap.move(startLocation, Direction.EAST);
-        System.out.println("+++++++++++++++++++++++++++++++++++++++");
-        worldMap.printMap(startLocation);
-
-
-//        startLocation = worldMap.move(startLocation, Direction.WEST);
-//        System.out.println("+++++++++++++++++++++++++++++++++++++++");
-//        worldMap.printMap(startLocation);
-
-
-//        startLocation = worldMap.move(startLocation, Direction.SOUTH);
-//        System.out.println("+++++++++++++++++++++++++++++++++++++++");
-//        worldMap.printMap(startLocation);
-
-
-//        startLocation = worldMap.move(startLocation, Direction.NORTH);
-//        System.out.println("+++++++++++++++++++++++++++++++++++++++");
-//        worldMap.printMap(startLocation);
     }
 
+    /**
+     * Just print to the console game ASCII art
+     */
+    private static void printBanner() {
+        //TODO add logic to print banner
+        System.out.println("Banned will be here :))");
+    }
 
 }

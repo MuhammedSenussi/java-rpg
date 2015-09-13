@@ -5,7 +5,7 @@ package com.company.rpg.map;
  */
 public enum MapMarker {
 
-    PLAYER("P"), EMPTY("*"), MONSTER("M"), OPENED("0");
+    PLAYER("P"), EMPTY("0"), MONSTER("M"), CLOSED("*");
 
     private final String marker;
 

@@ -1,7 +1,31 @@
 package com.company.rpg.ui.menu;
 
 /**
- * Created by karmanov on 9/12/15.
+ * Basic menu interface. Define the required function for each menu in the game
+ *
+ * @author Dmitriy Karmanov
+ * @since 1.0
  */
-public class Menu {
+public interface Menu {
+
+    /**
+     * Print to the console numbered menu
+     */
+    void showMenu();
+
+    /**
+     * Get player's entered value to the console
+     * and validates it.
+     *
+     * @return index of player's selected value
+     */
+    int getSelectionIndex();
+
+    /**
+     * Get command from list commands list by given index
+     *
+     * @param index of the selected command
+     * @return string representation of selected command
+     */
+    String getCommandByIndex(int index);
 }

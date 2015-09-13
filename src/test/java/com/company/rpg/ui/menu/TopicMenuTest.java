@@ -1,14 +1,26 @@
 package com.company.rpg.ui.menu;
 
-import static org.junit.Assert.*;
+import org.junit.Before;
+import org.junit.Test;
 
-/**
- * Created by karmanov on 9/12/15.
- */
+import java.io.ByteArrayInputStream;
+
+import static junit.framework.TestCase.assertEquals;
+
 public class TopicMenuTest {
 
-    @org.junit.Test
-    public void testShowMenu() throws Exception {
+    @Before
+    public void setUp() throws Exception {
+        ByteArrayInputStream in = new ByteArrayInputStream("3".getBytes());
+        System.setIn(in);
+    }
 
+    @Test
+    public void testShowMenu() throws Exception {
+        TopicMenu topicMenu = new TopicMenu();
+        topicMenu.showMenu();
+        int selection = topicMenu.getSelectionIndex();
+
+        assertEquals(3, selection);
     }
 }

@@ -1,7 +1,17 @@
 package com.company.rpg.repository;
 
-/**
- * Created by karmanov on 9/12/15.
- */
+import com.company.rpg.model.GameContext;
+
 public class GameContextRepository {
+
+    private GameContext gameContext;
+
+    public GameContext getGameContext() {
+        if (gameContext == null) {
+            gameContext = new GameContext();
+        }
+        return gameContext;
+    }
+
+
 }

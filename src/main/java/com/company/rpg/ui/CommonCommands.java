@@ -1,7 +1,13 @@
 package com.company.rpg.ui;
 
 /**
- * Created by karmanov on 9/13/15.
+ * Contains all common game commands,
+ * which could be called from different places
+ *
+ * @author Dmitriy Karmanov
+ * @since 1.0
  */
 public enum CommonCommands {
+
+    NORTH, SOUTH, WEST, EAST, SAVE, EXIT, LOAD, MAP
 }
