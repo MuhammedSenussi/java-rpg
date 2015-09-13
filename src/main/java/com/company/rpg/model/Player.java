@@ -2,7 +2,7 @@ package com.company.rpg.model;
 
 import java.io.Serializable;
 
-public class Hero implements Serializable {
+public class Player implements Serializable {
 
     private String name;
     private int maxHealth;
@@ -12,7 +12,7 @@ public class Hero implements Serializable {
     private int defence;
     private int agility;
 
-    public Hero(String name, int health, int experience, int damage, int defence, int agility) {
+    public Player(String name, int health, int experience, int damage, int defence, int agility) {
         this.name = name;
         this.maxHealth = health;
         this.currentHealth = health;
@@ -92,6 +92,7 @@ public class Hero implements Serializable {
 
     @Override
     public String toString() {
+        //TODO update this to be more beautiful
         return "Hero{" +
                 "name='" + name + '\'' +
                 ", maxHealth=" + maxHealth +

@@ -1,24 +1,24 @@
-package com.company.rpg.game;
+package com.company.rpg.model;
 
 import com.company.rpg.map.locations.Location;
-import com.company.rpg.model.Hero;
+import com.company.rpg.model.Player;
 
 import java.io.Serializable;
 
-public class GameState implements Serializable {
+public class GameContext implements Serializable {
 
     private String topic;
 
-    private Hero hero;
+    private Player player;
 
     private Location currentLocation;
 
-    public Hero getHero() {
-        return hero;
+    public Player getPlayer() {
+        return player;
     }
 
-    public void setHero(Hero hero) {
-        this.hero = hero;
+    public void setPlayer(Player player) {
+        this.player = player;
     }
 
     public String getTopic() {
@@ -41,7 +41,7 @@ public class GameState implements Serializable {
     public String toString() {
         return "GameState{" +
                 "topic='" + topic + '\'' +
-                ", hero=" + hero +
+                ", player=" + player +
                 ", currentLocation=" + currentLocation +
                 '}';
     }
