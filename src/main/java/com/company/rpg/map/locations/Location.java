@@ -4,6 +4,7 @@ import com.company.rpg.map.MapMarker;
 import com.company.rpg.ui.menu.AbstractMenu;
 
 import java.io.Serializable;
+import java.util.Objects;
 
 /**
  * Basic location entity. All other locations should extend this class
@@ -33,6 +34,8 @@ public abstract class Location implements Serializable {
     public abstract void printLocationInfo();
 
     public abstract AbstractMenu getLocationMenu();
+
+    public abstract void printLocationMenu();
 
     public String getName() {
         return name;
@@ -101,5 +104,19 @@ public abstract class Location implements Serializable {
 
     public void setIsOpened(boolean isOpened) {
         this.isOpened = isOpened;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Location location = (Location) o;
+        return Objects.equals(x, location.x) &&
+                Objects.equals(y, location.y);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(x, y);
     }
 }

@@ -77,7 +77,7 @@ public class WorldMap implements Serializable {
                 //skip the first location from random generating loop
                 if (i == 0 && j == 0) {
                     System.out.println("Add Empty location to the coordinates: " + i + ", " + j);
-                    map[i][j] = new EmptyLocation("This is start point", i, j);
+                    map[i][j] = new EmptyLocation("large desert.", i, j);
                     continue;
                 }
                 int magicNumber = RandomUtil.nextIntInRange(0, 100);
@@ -86,16 +86,18 @@ public class WorldMap implements Serializable {
                     numberOfGeneratedMonsters++;
                 } else {
                     System.out.println("Add Empty location to the coordinates: " + i + ", " + j);
-                    map[i][j] = new EmptyLocation("This is start point", i, j);
+                    map[i][j] = new EmptyLocation("desert", i, j);
                 }
             }
         }
         //To verify that required number of monsters was generated
-        while (numberOfGeneratedMonsters < countOfMonsters) {
+        while (numberOfGeneratedMonsters <= countOfMonsters) {
             int randX = RandomUtil.nextIntInRange(0, 9);
             int randY = RandomUtil.nextIntInRange(0, 9);
-            addMonsterLocation(randX, randY);
-            numberOfGeneratedMonsters++;
+            if (randX != 0 && randY != 0) {
+                addMonsterLocation(randX, randY);
+                numberOfGeneratedMonsters++;
+            }
         }
 
         System.out.println();
@@ -110,7 +112,7 @@ public class WorldMap implements Serializable {
      */
     private void addMonsterLocation(int x, int y) {
         System.out.println("Add Monster location to the coordinates: " + x + ", " + y);
-        NPC monster = new NPC("Super monster", 90, 100, 10, 10, 10, 50);
+        NPC monster = new NPC("Goblin", 90, 100, 10, 10, 10, 50);
         map[x][y] = new MonsterLocation("This is monster location", x, y, monster);
     }
 
@@ -147,31 +149,6 @@ public class WorldMap implements Serializable {
         int x = location.getX();
         int y = location.getY();
         if (Direction.EAST.equals(direction)) {
-            if (x == 0) {
-                printError();
-            } else {
-                map[x][y].setIsOpened(true);
-                map[x][y].setMapMarker(MapMarker.EMPTY);
-                x--;
-            }
-        } else if (Direction.WEST.equals(direction)) {
-            if (x == mapSize - 1) {
-                printError();
-            } else {
-                map[x][y].setIsOpened(true);
-                map[x][y].setMapMarker(MapMarker.EMPTY);
-                x++;
-            }
-
-        } else if (Direction.NORTH.equals(direction)) {
-            if (y == 0) {
-                printError();
-            } else {
-                map[x][y].setIsOpened(true);
-                map[x][y].setMapMarker(MapMarker.EMPTY);
-                y--;
-            }
-        } else if (Direction.SOUTH.equals(direction)) {
             if (y == mapSize - 1) {
                 printError();
             } else {
@@ -179,10 +156,36 @@ public class WorldMap implements Serializable {
                 map[x][y].setMapMarker(MapMarker.EMPTY);
                 y++;
             }
+        } else if (Direction.WEST.equals(direction)) {
+            if (y == 0) {
+                printError();
+            } else {
+                map[x][y].setIsOpened(true);
+                map[x][y].setMapMarker(MapMarker.EMPTY);
+                y--;
+            }
+
+        } else if (Direction.NORTH.equals(direction)) {
+            if (x == 0) {
+                printError();
+            } else {
+                map[x][y].setIsOpened(true);
+                map[x][y].setMapMarker(MapMarker.EMPTY);
+                x--;
+            }
+        } else if (Direction.SOUTH.equals(direction)) {
+            if (x == mapSize - 1) {
+                printError();
+            } else {
+                map[x][y].setIsOpened(true);
+                map[x][y].setMapMarker(MapMarker.EMPTY);
+                x++;
+            }
         }
         location.setX(x);
         location.setY(y);
-        return location;
+        return map[x][y];
+//        return location;
     }
 
     /**

@@ -28,11 +28,11 @@ public class EmptyLocation extends Location implements Serializable {
      */
     @Override
     public void printLocationInfo() {
-        System.out.println("You get into " + getName());
+        System.out.println("You are at " + getName());
         System.out.println(DESCRIPTION);
         System.out.println();
-        locationMenu.showMenu();
     }
+
 
     /**
      * Returns this location menu
@@ -42,5 +42,13 @@ public class EmptyLocation extends Location implements Serializable {
     @Override
     public AbstractMenu getLocationMenu() {
         return locationMenu;
+    }
+
+    /**
+     * Print location menu to the console
+     */
+    @Override
+    public void printLocationMenu() {
+        locationMenu.showMenu();
     }
 }

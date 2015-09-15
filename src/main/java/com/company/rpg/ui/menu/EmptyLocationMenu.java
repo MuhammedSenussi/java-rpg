@@ -22,6 +22,7 @@ public class EmptyLocationMenu extends AbstractMenu implements Serializable {
         getCommands().add("West");
         getCommands().add("East");
         getCommands().add("Map");
+        getCommands().add("Statistics");
         getCommands().add("Save");
         getCommands().add("Exit");
         System.out.println("Please select an action: ");

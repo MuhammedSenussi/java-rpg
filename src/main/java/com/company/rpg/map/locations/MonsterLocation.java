@@ -3,6 +3,7 @@ package com.company.rpg.map.locations;
 import com.company.rpg.map.MapMarker;
 import com.company.rpg.ui.menu.AbstractMenu;
 import com.company.rpg.ui.menu.EmptyLocationMenu;
+import com.company.rpg.ui.menu.Menu;
 import com.company.rpg.ui.menu.MonsterLocationMenu;
 
 import java.io.Serializable;
@@ -22,11 +23,14 @@ public class MonsterLocation extends Location implements Serializable {
 
     private EmptyLocationMenu emptyLocationMenu;
 
+    private Menu currentMenu;
+
     public MonsterLocation(String name,
                            int x, int y, LocationItem monster) {
         super(name, DESCRIPTION, monster, LocationType.MONSTER, x, y, MapMarker.MONSTER);
         this.locationMenu = new MonsterLocationMenu();
         this.emptyLocationMenu = new EmptyLocationMenu();
+        this.currentMenu = locationMenu;
 
     }
 
@@ -38,10 +42,9 @@ public class MonsterLocation extends Location implements Serializable {
         System.out.println("You get into monster's cave" + getName());
         if (getLocationItem() == null && LocationType.EMPTY.equals(getLocationType())) {
             System.out.println("But it's empty.");
-            emptyLocationMenu.showMenu();
+            this.currentMenu = emptyLocationMenu;
         } else {
             System.out.println("Old and evil monster leave here. \n He saw you and begins to attack");
-            locationMenu.showMenu();
         }
     }
 
@@ -53,5 +56,13 @@ public class MonsterLocation extends Location implements Serializable {
     @Override
     public AbstractMenu getLocationMenu() {
         return locationMenu;
+    }
+
+    /**
+     * Print location info to the console
+     */
+    @Override
+    public void printLocationMenu() {
+        this.currentMenu.showMenu();
     }
 }

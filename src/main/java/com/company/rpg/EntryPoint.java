@@ -1,6 +1,8 @@
 package com.company.rpg;
 
 import com.company.rpg.game.GamePlayController;
+import com.company.rpg.game.model.GameContext;
+import com.company.rpg.repository.GameContextRepository;
 import com.company.rpg.ui.CommonCommandsExecutor;
 import com.company.rpg.ui.menu.MainMenu;
 import com.company.rpg.ui.menu.Menu;
@@ -20,13 +22,16 @@ public class EntryPoint {
     public static void main(String[] args) {
         printBanner();
         Menu mainMenu = new MainMenu();
+        GameContextRepository gameContextRepository = new GameContextRepository();
+        GamePlayController gamePlayController = new GamePlayController(gameContextRepository);
         mainMenu.showMenu();
         int selectionIndex = mainMenu.getSelectionIndex();
         if (1 == selectionIndex) {
-            GamePlayController gamePlayController = new GamePlayController();
-            gamePlayController.play();
+            gamePlayController.startGame();
         } else if (2 == selectionIndex) {
-            CommonCommandsExecutor.load();
+            GameContext gameContext = CommonCommandsExecutor.load();
+            gameContextRepository.setGameContext(gameContext);
+            gamePlayController.continueGame();
         } else if (3 == selectionIndex) {
             CommonCommandsExecutor.exit();
         } else if (4 == selectionIndex) {

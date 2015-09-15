@@ -26,7 +26,7 @@ public class GamePlayController {
 
     private static final int MAP_SIZE = 10;
 
-    private static final int NUMBER_OF_MONSTERS = 50;
+    private static final int NUMBER_OF_MONSTERS = 1;
 
     private Menu topicMenu;
 
@@ -40,34 +40,43 @@ public class GamePlayController {
 
     private boolean isGameOver;
 
-    public GamePlayController() {
-        this.gameContextRepository = new GameContextRepository();
+    public GamePlayController(GameContextRepository gameContextRepository) {
+        this.gameContextRepository = gameContextRepository;
         this.topicMenu = new TopicMenu();
         this.playerMenu = new PlayerMenu(gameContextRepository.getGameContext());
         this.battleService = new BattleServiceImpl();
     }
 
     /**
-     * Executes main game play logic
+     * Start new game
      */
-    public void play() {
+    public void startGame() {
         gameContextRepository.getGameContext().setTopic(selectTopic());
         gameContextRepository.getGameContext().setPlayer(createPlayer());
         initMap();
+        continueGame();
+//        while (!isGameOver) {
+//            Location currentLocation = gameContextRepository.getGameContext().getCurrentLocation();
+//            currentLocation.printLocationInfo();
+//            currentLocation.printLocationMenu();
+//            executeCommand(gameContextRepository.getGameContext().getCurrentLocation());
+//        }
+//        System.out.println("Congratulations! You've explored all locations.");
+//        CommonCommandsExecutor.exit();
+    }
+
+    /**
+     * Continue saved game
+     */
+    public void continueGame() {
         while (!isGameOver) {
-            showLocationInfo();
+            Location currentLocation = gameContextRepository.getGameContext().getCurrentLocation();
+            currentLocation.printLocationInfo();
+            currentLocation.printLocationMenu();
             executeCommand(gameContextRepository.getGameContext().getCurrentLocation());
         }
         System.out.println("Congratulations! You've explored all locations.");
         CommonCommandsExecutor.exit();
-    }
-
-    /**
-     * Print to the console current player's location information
-     */
-    private void showLocationInfo() {
-        Location currentLocation = gameContextRepository.getGameContext().getCurrentLocation();
-        currentLocation.printLocationInfo();
     }
 
     /**
@@ -127,26 +136,27 @@ public class GamePlayController {
      * Handle user selected command and execute appropriate command
      *
      * @param location - of the player.
+     * @return current location
      */
-    private void executeCommand(Location location) {
+    private Location executeCommand(Location location) {
         int selectionIndex = location.getLocationMenu().getSelectionIndex();
         String command = location.getLocationMenu().getCommandByIndex(selectionIndex).toUpperCase();
         CommonCommands cmd = CommonCommands.valueOf(command);
         if (CommonCommands.NORTH.equals(cmd)) {
-            Location newLocation = worldMap.move(location, Direction.NORTH);
-            gameContextRepository.getGameContext().setCurrentLocation(newLocation);
+            location = worldMap.move(location, Direction.NORTH);
+            gameContextRepository.getGameContext().setCurrentLocation(location);
             gameContextRepository.getGameContext().setWorldMap(worldMap);
         } else if (CommonCommands.SOUTH.equals(cmd)) {
-            Location newLocation = worldMap.move(location, Direction.SOUTH);
-            gameContextRepository.getGameContext().setCurrentLocation(newLocation);
+            location = worldMap.move(location, Direction.SOUTH);
+            gameContextRepository.getGameContext().setCurrentLocation(location);
             gameContextRepository.getGameContext().setWorldMap(worldMap);
         } else if (CommonCommands.WEST.equals(cmd)) {
-            Location newLocation = worldMap.move(location, Direction.WEST);
-            gameContextRepository.getGameContext().setCurrentLocation(newLocation);
+            location = worldMap.move(location, Direction.WEST);
+            gameContextRepository.getGameContext().setCurrentLocation(location);
             gameContextRepository.getGameContext().setWorldMap(worldMap);
         } else if (CommonCommands.EAST.equals(cmd)) {
-            Location newLocation = worldMap.move(location, Direction.EAST);
-            gameContextRepository.getGameContext().setCurrentLocation(newLocation);
+            location = worldMap.move(location, Direction.EAST);
+            gameContextRepository.getGameContext().setCurrentLocation(location);
             gameContextRepository.getGameContext().setWorldMap(worldMap);
         } else if (CommonCommands.SAVE.equals(cmd)) {
             CommonCommandsExecutor.save(gameContextRepository.getGameContext());
@@ -158,8 +168,13 @@ public class GamePlayController {
             Location monsterLocation = gameContextRepository.getGameContext().getCurrentLocation();
             Player player = gameContextRepository.getGameContext().getPlayer();
             battleService.battle(player, monsterLocation);
+        } else if (CommonCommands.LOAD.equals(cmd)) {
+            CommonCommandsExecutor.load();
+        } else if (CommonCommands.STATISTICS.equals(cmd)) {
+            System.out.println(gameContextRepository.getGameContext().getPlayer().toString());
         }
         isGameFinished();
+        return location;
     }
 
     /**
