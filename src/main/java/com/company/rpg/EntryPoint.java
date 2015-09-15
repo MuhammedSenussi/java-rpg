@@ -5,6 +5,10 @@ import com.company.rpg.ui.CommonCommandsExecutor;
 import com.company.rpg.ui.menu.MainMenu;
 import com.company.rpg.ui.menu.Menu;
 
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
+
 /**
  * Main entry point of the application
  *
@@ -35,8 +39,12 @@ public class EntryPoint {
      * Just print to the console game ASCII art
      */
     private static void printBanner() {
-        //TODO add logic to print banner
-        System.out.println("Banned will be here :))");
+        try {
+            String banner = new String(Files.readAllBytes(Paths.get("assets/banner.txt")));
+            System.out.println(banner + "\n");
+        } catch (IOException e) {
+            //It's not critical, so do nothing
+        }
     }
 
 }

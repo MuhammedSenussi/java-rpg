@@ -1,4 +1,4 @@
-package com.company.rpg.model;
+package com.company.rpg.game.model;
 
 import com.company.rpg.map.locations.LocationItem;
 

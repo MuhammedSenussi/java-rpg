@@ -1,7 +1,7 @@
 package com.company.rpg.map;
 
 /**
- * Created by karmanov on 9/11/15.
+ * Contains possible player's move directions
  */
 public enum Direction {
 

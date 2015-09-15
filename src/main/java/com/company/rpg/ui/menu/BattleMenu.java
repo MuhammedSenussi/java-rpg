@@ -3,11 +3,18 @@ package com.company.rpg.ui.menu;
 import java.io.Serializable;
 
 /**
- * Created by karmanov on 9/14/15.
+ * Battler menu class contains menu commands
+ * that player can use during battle
+ *
+ * @author Dmitriy Karmanov
+ * @since 1.0
  */
 public class BattleMenu extends AbstractMenu implements Serializable {
 
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void showMenu() {
         getCommands().clear();

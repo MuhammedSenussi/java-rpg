@@ -1,7 +1,15 @@
-package com.company.rpg.model;
+package com.company.rpg.game.model;
 
 import java.io.Serializable;
 
+/**
+ * Player entity contains all required stats
+ * for game play. All other game entities should extend
+ * this class
+ *
+ * @author Dmitriy Karmanov
+ * @since 1.0
+ */
 public class Player implements Serializable {
 
     private String name;

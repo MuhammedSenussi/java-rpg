@@ -1,13 +1,18 @@
 package com.company.rpg.game.battle;
 
-import com.company.rpg.model.NPC;
-import com.company.rpg.model.Player;
+import com.company.rpg.map.locations.Location;
+import com.company.rpg.map.locations.LocationType;
+import com.company.rpg.game.model.NPC;
+import com.company.rpg.game.model.Player;
 import com.company.rpg.ui.menu.AbstractMenu;
 import com.company.rpg.ui.menu.BattleMenu;
 import com.company.rpg.utils.RandomUtil;
 
 /**
- * Created by karmanov on 9/7/15.
+ * Basic implementation of {@link BattleService}
+ *
+ * @author Dmitriy Karmanov
+ * @since 1.0
  */
 public class BattleServiceImpl implements BattleService {
 
@@ -17,7 +22,11 @@ public class BattleServiceImpl implements BattleService {
         menu = new BattleMenu();
     }
 
-    public void battle(Player hero, NPC monster) {
+    /**
+     * {@inheritDoc}
+     */
+    public void battle(Player hero, Location location) {
+        NPC monster = (NPC) location.getLocationItem();
         boolean readyToEscape = false;
         int heroHealth = hero.getCurrentHealth();
         int monsterHealth = monster.getCurrentHealth();
@@ -49,16 +58,16 @@ public class BattleServiceImpl implements BattleService {
                 int failChance = RandomUtil.nextInt(monster.getDefence());
                 readyToEscape = true;
                 if (escapeChance >= failChance) {
-                    System.out.println("-------------------------------------------");
+//                    System.out.println("-------------------------------------------");
                     System.out.println("You successfully escape the " + monster.getName() + "!");
-                    System.out.println("-------------------------------------------");
-                    System.out.println("Press enter to continue...");
+//                    System.out.println("-------------------------------------------");
+//                    System.out.println("Press enter to continue...");
                     break;
                 } else {
-                    System.out.println("----------------------------------");
+//                    System.out.println("----------------------------------");
                     System.out.println("You failed at escaping!");
-                    System.out.println("----------------------------------");
-                    System.out.println("Press enter to continue...");
+//                    System.out.println("----------------------------------");
+//                    System.out.println("Press enter to continue...");
                 }
 
             }
@@ -85,19 +94,22 @@ public class BattleServiceImpl implements BattleService {
             System.exit(0);
             //TODO game over logic
         } else if (monsterHealth <= 0) {
-            System.out.println("--------------------------------");
+//            System.out.println("--------------------------------");
             System.out.println(hero.getName() + " has defeated " + monster.getName() + "!");
             System.out.println("You earn " + monster.getExpCost() + " exp on the enemy.");
-            System.out.println("--------------------------------");
+//            System.out.println("--------------------------------");
             hero.addExp(monster.getExpCost());
+            location.setLocationItem(null);
+            location.setLocationType(LocationType.EMPTY);
+            location.setIsOpened(true);
             System.out.println("Press enter to continue...");
         }
     }
 
     private void printMessage(String message, boolean isNextMoveExpected) {
-        System.out.println("------------------------------------");
+//        System.out.println("------------------------------------");
         System.out.println(message);
-        System.out.println("------------------------------------");
+//        System.out.println("------------------------------------");
         if (isNextMoveExpected) {
             System.out.println("Press enter to continue...");
         }

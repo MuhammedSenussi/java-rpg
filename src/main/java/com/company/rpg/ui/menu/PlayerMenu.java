@@ -1,12 +1,17 @@
 package com.company.rpg.ui.menu;
 
-import com.company.rpg.model.GameContext;
+import com.company.rpg.game.model.GameContext;
 
 import java.io.IOException;
 import java.util.stream.Stream;
 
 /**
- * Created by karmanov on 9/12/15.
+ * Players menu representation
+ * Provides user to select character from the list loaded
+ * from appropriate topic file
+ *
+ * @author Dmitriy Karmanov
+ * @since 1.0
  */
 
 public class PlayerMenu extends AbstractMenu {

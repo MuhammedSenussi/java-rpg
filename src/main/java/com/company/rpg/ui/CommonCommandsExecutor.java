@@ -1,8 +1,7 @@
 package com.company.rpg.ui;
 
-import com.company.rpg.model.GameContext;
+import com.company.rpg.game.model.GameContext;
 
-import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectOutputStream;

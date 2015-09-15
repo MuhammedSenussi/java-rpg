@@ -5,10 +5,8 @@ import com.company.rpg.game.battle.BattleServiceImpl;
 import com.company.rpg.map.Direction;
 import com.company.rpg.map.WorldMap;
 import com.company.rpg.map.locations.Location;
-import com.company.rpg.map.locations.LocationItem;
-import com.company.rpg.model.GameContext;
-import com.company.rpg.model.NPC;
-import com.company.rpg.model.Player;
+import com.company.rpg.game.model.GameContext;
+import com.company.rpg.game.model.Player;
 import com.company.rpg.repository.GameContextRepository;
 import com.company.rpg.ui.CommonCommands;
 import com.company.rpg.ui.CommonCommandsExecutor;
@@ -18,12 +16,17 @@ import com.company.rpg.ui.menu.TopicMenu;
 import com.company.rpg.utils.RandomUtil;
 
 /**
+ * Main game play controller all main logic (navigation, battle, etc)
+ * starts from here
+ *
  * @author Dmitriy Karmanov
  * @since 1.0
  */
 public class GamePlayController {
 
     private static final int MAP_SIZE = 10;
+
+    private static final int NUMBER_OF_MONSTERS = 50;
 
     private Menu topicMenu;
 
@@ -44,6 +47,9 @@ public class GamePlayController {
         this.battleService = new BattleServiceImpl();
     }
 
+    /**
+     * Executes main game play logic
+     */
     public void play() {
         gameContextRepository.getGameContext().setTopic(selectTopic());
         gameContextRepository.getGameContext().setPlayer(createPlayer());
@@ -57,7 +63,7 @@ public class GamePlayController {
     }
 
     /**
-     *
+     * Print to the console current player's location information
      */
     private void showLocationInfo() {
         Location currentLocation = gameContextRepository.getGameContext().getCurrentLocation();
@@ -79,7 +85,10 @@ public class GamePlayController {
     }
 
     /**
-     * @return
+     * Creates player. Get the user's selected character
+     * and generate player based on selection and random generated statistics
+     *
+     * @return create {@link Player}
      */
     private Player createPlayer() {
         playerMenu.showMenu();
@@ -94,7 +103,7 @@ public class GamePlayController {
     }
 
     /**
-     *
+     * Prints to the console world's map
      */
     private void printMap() {
         GameContext gameContext = gameContextRepository.getGameContext();
@@ -102,11 +111,11 @@ public class GamePlayController {
     }
 
     /**
-     *
+     * Generate the game world and map for it
      */
     private void initMap() {
         if (worldMap == null) {
-            worldMap = new WorldMap(MAP_SIZE);
+            worldMap = new WorldMap(MAP_SIZE, NUMBER_OF_MONSTERS);
             worldMap.init();
             Location currentLocation = worldMap.getLocation(0, 0);
             gameContextRepository.getGameContext().setCurrentLocation(currentLocation);
@@ -115,24 +124,29 @@ public class GamePlayController {
     }
 
     /**
-     * @param location
+     * Handle user selected command and execute appropriate command
+     *
+     * @param location - of the player.
      */
     private void executeCommand(Location location) {
         int selectionIndex = location.getLocationMenu().getSelectionIndex();
         String command = location.getLocationMenu().getCommandByIndex(selectionIndex).toUpperCase();
         CommonCommands cmd = CommonCommands.valueOf(command);
         if (CommonCommands.NORTH.equals(cmd)) {
-            gameContextRepository.getGameContext().setCurrentLocation(worldMap.move(location, Direction.NORTH));
+            Location newLocation = worldMap.move(location, Direction.NORTH);
+            gameContextRepository.getGameContext().setCurrentLocation(newLocation);
             gameContextRepository.getGameContext().setWorldMap(worldMap);
         } else if (CommonCommands.SOUTH.equals(cmd)) {
-            gameContextRepository.getGameContext().setCurrentLocation(worldMap.move(location, Direction.SOUTH));
+            Location newLocation = worldMap.move(location, Direction.SOUTH);
+            gameContextRepository.getGameContext().setCurrentLocation(newLocation);
             gameContextRepository.getGameContext().setWorldMap(worldMap);
         } else if (CommonCommands.WEST.equals(cmd)) {
-            gameContextRepository.getGameContext().setCurrentLocation(worldMap.move(location, Direction.WEST));
+            Location newLocation = worldMap.move(location, Direction.WEST);
+            gameContextRepository.getGameContext().setCurrentLocation(newLocation);
             gameContextRepository.getGameContext().setWorldMap(worldMap);
         } else if (CommonCommands.EAST.equals(cmd)) {
-            gameContextRepository.getGameContext().setCurrentLocation(worldMap.move(location, Direction.EAST));
-            gameContextRepository.getGameContext().setWorldMap(worldMap);
+            Location newLocation = worldMap.move(location, Direction.EAST);
+            gameContextRepository.getGameContext().setCurrentLocation(newLocation);
             gameContextRepository.getGameContext().setWorldMap(worldMap);
         } else if (CommonCommands.SAVE.equals(cmd)) {
             CommonCommandsExecutor.save(gameContextRepository.getGameContext());
@@ -141,9 +155,9 @@ public class GamePlayController {
         } else if (CommonCommands.MAP.equals(cmd)) {
             printMap();
         } else if (CommonCommands.FIGHT.equals(cmd)) {
-            NPC monster = (NPC) gameContextRepository.getGameContext().getCurrentLocation().getLocationItem();
+            Location monsterLocation = gameContextRepository.getGameContext().getCurrentLocation();
             Player player = gameContextRepository.getGameContext().getPlayer();
-            battleService.battle(player, monster);
+            battleService.battle(player, monsterLocation);
         }
         isGameFinished();
     }

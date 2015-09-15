@@ -1,8 +1,7 @@
-package com.company.rpg.model;
+package com.company.rpg.game.model;
 
 import com.company.rpg.map.WorldMap;
 import com.company.rpg.map.locations.Location;
-import com.company.rpg.model.Player;
 
 import java.io.Serializable;
 

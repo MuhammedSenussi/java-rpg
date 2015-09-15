@@ -5,6 +5,9 @@ import com.company.rpg.ui.menu.AbstractMenu;
 
 import java.io.Serializable;
 
+/**
+ * Basic location entity. All other locations should extend this class
+ */
 public abstract class Location implements Serializable {
 
     private String name;
@@ -80,11 +83,12 @@ public abstract class Location implements Serializable {
     }
 
     public MapMarker getMapMarker() {
-        if (isOpened) {
-            return mapMarker;
-        } else {
-            return MapMarker.CLOSED;
-        }
+//        if (isOpened) {
+//            return mapMarker;
+//        } else {
+//            return MapMarker.CLOSED;
+//        }
+        return mapMarker;
     }
 
     public void setMapMarker(MapMarker mapMarker) {
