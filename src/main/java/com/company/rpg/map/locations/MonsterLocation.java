@@ -27,7 +27,7 @@ public class MonsterLocation extends Location implements Serializable {
 
     public MonsterLocation(String name,
                            int x, int y, LocationItem monster) {
-        super(name, DESCRIPTION, monster, LocationType.MONSTER, x, y, MapMarker.MONSTER);
+        super(name, DESCRIPTION, monster, LocationType.MONSTER, x, y, MapMarker.CLOSED);
         this.locationMenu = new MonsterLocationMenu();
         this.emptyLocationMenu = new EmptyLocationMenu();
         this.currentMenu = locationMenu;

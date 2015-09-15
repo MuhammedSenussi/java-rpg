@@ -1,5 +1,6 @@
 package com.company.rpg.game.battle;
 
+import com.company.rpg.map.locations.EmptyLocation;
 import com.company.rpg.map.locations.Location;
 import com.company.rpg.map.locations.LocationType;
 import com.company.rpg.game.model.NPC;
@@ -25,7 +26,7 @@ public class BattleServiceImpl implements BattleService {
     /**
      * {@inheritDoc}
      */
-    public void battle(Player hero, Location location) {
+    public Location battle(Player hero, Location location) {
         NPC monster = (NPC) location.getLocationItem();
         boolean readyToEscape = false;
         int heroHealth = hero.getCurrentHealth();
@@ -92,10 +93,11 @@ public class BattleServiceImpl implements BattleService {
             System.out.println("You earn " + monster.getExpCost() + " exp on the enemy.");
             System.out.println("--------------------------------");
             hero.addExp(monster.getExpCost());
-            location.setLocationItem(null);
-            location.setLocationType(LocationType.EMPTY);
-            location.setIsOpened(true);
+            int x = location.getX();
+            int y = location.getY();
+            location = new EmptyLocation("monster's cave", x, y);
         }
+        return location;
     }
 
     private void printMessage(String message) {

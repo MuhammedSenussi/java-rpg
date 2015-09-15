@@ -26,7 +26,7 @@ public class GamePlayController {
 
     private static final int MAP_SIZE = 10;
 
-    private static final int NUMBER_OF_MONSTERS = 1;
+    private static final int NUMBER_OF_MONSTERS = 30;
 
     private Menu topicMenu;
 
@@ -55,14 +55,6 @@ public class GamePlayController {
         gameContextRepository.getGameContext().setPlayer(createPlayer());
         initMap();
         continueGame();
-//        while (!isGameOver) {
-//            Location currentLocation = gameContextRepository.getGameContext().getCurrentLocation();
-//            currentLocation.printLocationInfo();
-//            currentLocation.printLocationMenu();
-//            executeCommand(gameContextRepository.getGameContext().getCurrentLocation());
-//        }
-//        System.out.println("Congratulations! You've explored all locations.");
-//        CommonCommandsExecutor.exit();
     }
 
     /**
@@ -167,7 +159,8 @@ public class GamePlayController {
         } else if (CommonCommands.FIGHT.equals(cmd)) {
             Location monsterLocation = gameContextRepository.getGameContext().getCurrentLocation();
             Player player = gameContextRepository.getGameContext().getPlayer();
-            battleService.battle(player, monsterLocation);
+            monsterLocation = battleService.battle(player, monsterLocation);
+            gameContextRepository.getGameContext().setCurrentLocation(monsterLocation);
         } else if (CommonCommands.LOAD.equals(cmd)) {
             CommonCommandsExecutor.load();
         } else if (CommonCommands.STATISTICS.equals(cmd)) {

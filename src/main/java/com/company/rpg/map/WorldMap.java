@@ -182,10 +182,9 @@ public class WorldMap implements Serializable {
                 x++;
             }
         }
-        location.setX(x);
-        location.setY(y);
+//        location.setX(x);
+//        location.setY(y);
         return map[x][y];
-//        return location;
     }
 
     /**

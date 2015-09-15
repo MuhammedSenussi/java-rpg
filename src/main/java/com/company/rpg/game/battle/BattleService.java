@@ -16,6 +16,7 @@ public interface BattleService {
      *
      * @param hero     - player
      * @param location - NPC's location
+     * @return updated {@link Location}
      */
-    void battle(Player hero, Location location);
+    Location battle(Player hero, Location location);
 }
