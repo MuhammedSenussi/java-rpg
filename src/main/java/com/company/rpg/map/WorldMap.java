@@ -76,7 +76,6 @@ public class WorldMap implements Serializable {
             for (int j = 0; j < mapSize; j++) {
                 //skip the first location from random generating loop
                 if (i == 0 && j == 0) {
-                    System.out.println("Add Empty location to the coordinates: " + i + ", " + j);
                     map[i][j] = new EmptyLocation("large desert.", i, j);
                     continue;
                 }
@@ -85,7 +84,6 @@ public class WorldMap implements Serializable {
                     addMonsterLocation(i, j);
                     numberOfGeneratedMonsters++;
                 } else {
-                    System.out.println("Add Empty location to the coordinates: " + i + ", " + j);
                     map[i][j] = new EmptyLocation("desert", i, j);
                 }
             }
@@ -111,8 +109,7 @@ public class WorldMap implements Serializable {
      * @param y coordinate of the location on the map
      */
     private void addMonsterLocation(int x, int y) {
-        System.out.println("Add Monster location to the coordinates: " + x + ", " + y);
-        NPC monster = new NPC("Goblin", 90, 100, 10, 10, 10, 50);
+        NPC monster = new NPC("Goblin", 90, 100, 10, 10, 50);
         map[x][y] = new MonsterLocation("This is monster location", x, y, monster);
     }
 
@@ -182,8 +179,6 @@ public class WorldMap implements Serializable {
                 x++;
             }
         }
-//        location.setX(x);
-//        location.setY(y);
         return map[x][y];
     }
 

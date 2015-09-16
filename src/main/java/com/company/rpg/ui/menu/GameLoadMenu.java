@@ -16,9 +16,13 @@ public class GameLoadMenu extends AbstractMenu {
     public void showMenu() {
         List<String> saveFiles = loadSaveFileNames();
         saveFiles.forEach(s -> getCommands().add(s));
-        System.out.println("Please select saved game to load");
-        printCommands();
-        System.out.print("> ");
+        if (!getCommands().isEmpty()) {
+            System.out.println("Please select saved game to load");
+            printCommands();
+            System.out.print("> ");
+        } else {
+            System.out.println("There is not saved games found");
+        }
     }
 
     /**

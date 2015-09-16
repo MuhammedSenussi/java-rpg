@@ -1,5 +1,7 @@
 package com.company.rpg.ui.menu;
 
+import java.util.List;
+
 /**
  * Basic menu interface. Define the required function for each menu in the game
  *
@@ -28,4 +30,11 @@ public interface Menu {
      * @return string representation of selected command
      */
     String getCommandByIndex(int index);
+
+    /**
+     * Return list of available commands commands
+     *
+     * @return list of available commands commands
+     */
+    List<String> getCommands();
 }

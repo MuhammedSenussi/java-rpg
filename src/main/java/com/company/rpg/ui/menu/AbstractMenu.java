@@ -78,15 +78,14 @@ public abstract class AbstractMenu implements Menu {
      */
     protected void exitWithError(String message) {
         System.err.print(message);
-        System.exit(-1);
+        System.exit(0);
     }
 
     /**
-     * Return list of available commands commands
-     *
-     * @return list of available commands commands
+     * {@inheritDoc}
      */
-    protected List<String> getCommands() {
+    @Override
+    public List<String> getCommands() {
         return commands;
     }
 

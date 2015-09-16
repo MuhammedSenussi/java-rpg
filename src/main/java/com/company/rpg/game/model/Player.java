@@ -18,16 +18,14 @@ public class Player implements Serializable {
     private int experience;
     private int damage;
     private int defence;
-    private int agility;
 
-    public Player(String name, int health, int experience, int damage, int defence, int agility) {
+    public Player(String name, int health, int experience, int damage, int defence) {
         this.name = name;
         this.maxHealth = health;
         this.currentHealth = health;
         this.experience = experience;
         this.damage = damage;
         this.defence = defence;
-        this.agility = agility;
     }
 
     public String getName() {
@@ -78,14 +76,6 @@ public class Player implements Serializable {
         this.defence = defence;
     }
 
-    public int getAgility() {
-        return agility;
-    }
-
-    public void setAgility(int agility) {
-        this.agility = agility;
-    }
-
     public void addExp(int exp) {
         this.experience += exp;
     }
@@ -104,7 +94,6 @@ public class Player implements Serializable {
                 "\n Health:     " + currentHealth + "/" + maxHealth +
                 "\n Experience: " + experience +
                 "\n Damage:     " + damage +
-                "\n Defence:    " + defence +
-                "\n Agility:    " + agility;
+                "\n Defence:    " + defence;
     }
 }

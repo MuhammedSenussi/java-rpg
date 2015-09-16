@@ -15,6 +15,8 @@ import com.company.rpg.ui.menu.PlayerMenu;
 import com.company.rpg.ui.menu.TopicMenu;
 import com.company.rpg.utils.RandomUtil;
 
+import java.time.LocalDateTime;
+
 /**
  * Main game play controller all main logic (navigation, battle, etc)
  * starts from here
@@ -97,7 +99,7 @@ public class GamePlayController {
         String playerName = playerMenu.getCommandByIndex(selectionIndex);
         System.out.println("You've selected " + playerName + " for the game");
         Player player = new Player(playerName, 100, 0, RandomUtil.nextIntInRange(10, 20),
-                RandomUtil.nextIntInRange(10, 20), RandomUtil.nextIntInRange(5, 20));
+                RandomUtil.nextIntInRange(10, 20));
         System.out.println(player);
         System.out.println();
         return player;
@@ -151,7 +153,7 @@ public class GamePlayController {
             gameContextRepository.getGameContext().setCurrentLocation(location);
             gameContextRepository.getGameContext().setWorldMap(worldMap);
         } else if (CommonCommands.SAVE.equals(cmd)) {
-            CommonCommandsExecutor.save(gameContextRepository.getGameContext());
+            CommonCommandsExecutor.save(gameContextRepository.getGameContext(), LocalDateTime.now().toString());
         } else if (CommonCommands.EXIT.equals(cmd)) {
             CommonCommandsExecutor.exit();
         } else if (CommonCommands.MAP.equals(cmd)) {
@@ -164,7 +166,7 @@ public class GamePlayController {
         } else if (CommonCommands.LOAD.equals(cmd)) {
             CommonCommandsExecutor.load();
         } else if (CommonCommands.STATISTICS.equals(cmd)) {
-            System.out.println(gameContextRepository.getGameContext().getPlayer().toString());
+            System.out.println(gameContextRepository.getGameContext().getPlayer().toString() + "\n");
         }
         isGameFinished();
         return location;

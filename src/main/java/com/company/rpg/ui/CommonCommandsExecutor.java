@@ -5,9 +5,6 @@ import com.company.rpg.ui.menu.GameLoadMenu;
 import com.company.rpg.ui.menu.Menu;
 
 import java.io.*;
-import java.nio.file.Files;
-import java.nio.file.LinkOption;
-import java.nio.file.Path;
 import java.time.LocalDateTime;
 
 /**
@@ -29,6 +26,9 @@ public class CommonCommandsExecutor {
      */
     public static GameContext load() {
         gameLoadMenu.showMenu();
+        if (gameLoadMenu.getCommands().isEmpty()) {
+            return null;
+        }
         int selectionIndex = gameLoadMenu.getSelectionIndex();
         String selectedFile = gameLoadMenu.getCommandByIndex(selectionIndex);
         System.out.println("Loading game....");
@@ -48,18 +48,17 @@ public class CommonCommandsExecutor {
      * @param gameContext to serialize
      */
 
-    public static void save(GameContext gameContext) {
+    public static void save(GameContext gameContext, String name) {
         System.out.println("Saving current game....");
-        LocalDateTime localDateTime = LocalDateTime.now();
         try {
             File saveDir = new File("save");
             if (!saveDir.exists()) {
                 saveDir.mkdir();
             }
-            FileOutputStream fileOutputStream = new FileOutputStream("save/" + localDateTime.toString() + ".ser");
+            FileOutputStream fileOutputStream = new FileOutputStream("save/" + name + ".ser");
             ObjectOutputStream objectOutputStream = new ObjectOutputStream(fileOutputStream);
             objectOutputStream.writeObject(gameContext);
-            System.out.println("Saved game to the file: " + localDateTime + ".ser \n");
+            System.out.println("Saved game to the file: " + name + ".ser \n");
         } catch (IOException e) {
             System.err.println("Could not save game. Reason: " + e.getMessage());
         }
