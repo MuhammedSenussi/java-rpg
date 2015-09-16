@@ -17,22 +17,27 @@ public class GameStartupController {
         Menu mainMenu = new MainMenu();
         GameContextRepository gameContextRepository = new GameContextRepository();
         GamePlayController gamePlayController = new GamePlayController(gameContextRepository);
-        mainMenu.showMenu();
-        int selectionIndex = mainMenu.getSelectionIndex();
-        if (1 == selectionIndex) {
-            gamePlayController.startGame();
-        } else if (2 == selectionIndex) {
-            GameContext gameContext = CommonCommandsExecutor.load();
-            if (gameContext != null) {
-                gameContextRepository.setGameContext(gameContext);
-                gamePlayController.continueGame();
-            } else {
+        boolean modeSelected = false;
+        while (!modeSelected) {
+            mainMenu.showMenu();
+            int selectionIndex = mainMenu.getSelectionIndex();
+            if (1 == selectionIndex) {
+                modeSelected = true;
                 gamePlayController.startGame();
+            } else if (2 == selectionIndex) {
+                modeSelected = true;
+                GameContext gameContext = CommonCommandsExecutor.load("save");
+                if (gameContext != null) {
+                    gameContextRepository.setGameContext(gameContext);
+                    gamePlayController.continueGame();
+                } else {
+                    gamePlayController.startGame();
+                }
+            } else if (3 == selectionIndex) {
+                CommonCommandsExecutor.exit();
+            } else if (4 == selectionIndex) {
+                System.out.println("User's manual will be here");
             }
-        } else if (3 == selectionIndex) {
-            CommonCommandsExecutor.exit();
-        } else if (4 == selectionIndex) {
-            System.out.println("User's manual will be there");
         }
     }
 

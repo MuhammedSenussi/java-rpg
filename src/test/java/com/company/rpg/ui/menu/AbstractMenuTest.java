@@ -8,7 +8,6 @@ import java.util.List;
 
 import static junit.framework.TestCase.assertTrue;
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertThat;
 
 public class AbstractMenuTest {
 
@@ -38,15 +37,9 @@ public class AbstractMenuTest {
     }
 
     @Test
-    public void testParseFile() throws Exception {
-
-    }
-
-
-    @Test
     public void testGetCommands() throws Exception {
         List<String> commands = menu.getCommands();
-        assertEquals(3, commands.size());
+        assertEquals(2, commands.size());
         assertTrue(commands.contains("Attack"));
     }
 

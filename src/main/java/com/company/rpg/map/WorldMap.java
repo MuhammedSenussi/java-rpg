@@ -135,6 +135,10 @@ public class WorldMap implements Serializable {
         return map[x][y];
     }
 
+    public void updateLocation(Location newLocation) {
+        map[newLocation.getX()][newLocation.getY()] = newLocation;
+    }
+
     /**
      * Move player around the world's map
      *

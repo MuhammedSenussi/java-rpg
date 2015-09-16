@@ -12,6 +12,12 @@ import java.util.List;
  */
 public class GameLoadMenu extends AbstractMenu {
 
+    private String saveDirectory;
+
+    public GameLoadMenu(String saveDirectory) {
+        this.saveDirectory = saveDirectory;
+    }
+
     @Override
     public void showMenu() {
         List<String> saveFiles = loadSaveFileNames();
@@ -32,7 +38,7 @@ public class GameLoadMenu extends AbstractMenu {
      */
     private List<String> loadSaveFileNames() {
         List<String> saveFiles = new ArrayList<>();
-        File dir = new File("save");
+        File dir = new File(saveDirectory);
         if (dir.isDirectory()) {
             File[] files = dir.listFiles();
             for (File file : files) {

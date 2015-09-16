@@ -15,14 +15,16 @@ import static org.junit.Assert.*;
 
 public class CommonCommandsExecutorTest {
 
+    public static final String TEST_SAVE = "test-save";
+
     @Test
     public void testLoad() throws Exception {
         ByteArrayInputStream in = new ByteArrayInputStream("1".getBytes());
         System.setIn(in);
         GameContext gameContext = new GameContext();
         String name = "testSave";
-        CommonCommandsExecutor.save(gameContext, name);
-        GameContext loadedGameContext = CommonCommandsExecutor.load();
+        CommonCommandsExecutor.save(gameContext, name, TEST_SAVE);
+        GameContext loadedGameContext = CommonCommandsExecutor.load(TEST_SAVE);
         assertNotNull(loadedGameContext);
         assertEquals(gameContext, loadedGameContext);
     }
@@ -31,7 +33,7 @@ public class CommonCommandsExecutorTest {
     public void testSave() throws Exception {
         GameContext gameContext = new GameContext();
         String name = "testSave";
-        CommonCommandsExecutor.save(gameContext, name);
-        assertTrue("Save file not found", new File("save/" + name + ".ser").exists());
+        CommonCommandsExecutor.save(gameContext, name, TEST_SAVE);
+        assertTrue("Save file not found", new File(TEST_SAVE + "/" + name + ".ser").exists());
     }
 }

@@ -15,16 +15,16 @@ import java.time.LocalDateTime;
  */
 public class CommonCommandsExecutor {
 
-    private static Menu gameLoadMenu = new GameLoadMenu();
-
     /**
      * Iterate over "save" directory and output to the user's console
      * list of all saved games in menu view (numbered list, with ability to select)
      * Deserialize selected file to {@link GameContext} class instance and return it.
      *
+     * @param saveDirectory directory contains save game files
      * @return deserialized file to {@link GameContext} class instance
      */
-    public static GameContext load() {
+    public static GameContext load(String saveDirectory) {
+        Menu gameLoadMenu = new GameLoadMenu(saveDirectory);
         gameLoadMenu.showMenu();
         if (gameLoadMenu.getCommands().isEmpty()) {
             return null;
@@ -48,14 +48,14 @@ public class CommonCommandsExecutor {
      * @param gameContext to serialize
      */
 
-    public static void save(GameContext gameContext, String name) {
+    public static void save(GameContext gameContext, String name, String saveDirectory) {
         System.out.println("Saving current game....");
         try {
-            File saveDir = new File("save");
+            File saveDir = new File(saveDirectory);
             if (!saveDir.exists()) {
                 saveDir.mkdir();
             }
-            FileOutputStream fileOutputStream = new FileOutputStream("save/" + name + ".ser");
+            FileOutputStream fileOutputStream = new FileOutputStream(saveDirectory + "/" + name + ".ser");
             ObjectOutputStream objectOutputStream = new ObjectOutputStream(fileOutputStream);
             objectOutputStream.writeObject(gameContext);
             System.out.println("Saved game to the file: " + name + ".ser \n");

@@ -11,6 +11,6 @@ public class BattleMenuTest {
     public void testShowMenu() throws Exception {
         Menu menu = new BattleMenu();
         menu.showMenu();
-        assertEquals(3, menu.getCommands().size());
+        assertEquals(2, menu.getCommands().size());
     }
 }

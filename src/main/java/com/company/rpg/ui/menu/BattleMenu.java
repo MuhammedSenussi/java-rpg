@@ -20,7 +20,6 @@ public class BattleMenu extends AbstractMenu implements Serializable {
         getCommands().clear();
         getCommands().add("Attack");
         getCommands().add("Charge Attack");
-        getCommands().add("Escape from battle");
         System.out.println("What would you like to do?");
         System.out.println("");
         printCommands();

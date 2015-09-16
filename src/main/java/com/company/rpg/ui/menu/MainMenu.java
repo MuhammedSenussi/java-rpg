@@ -18,11 +18,17 @@ public class MainMenu extends AbstractMenu {
     @Override
     public void showMenu() {
         System.out.println("Main Menu:");
-        getCommands().add("Start new game");
-        getCommands().add("Load game");
-        getCommands().add("Exit");
-        getCommands().add("Help");
+        addCommandIfNotExist("Start new game");
+        addCommandIfNotExist("Load game");
+        addCommandIfNotExist("Exit");
+        addCommandIfNotExist("Help");
         printCommands();
         System.out.print("> ");
+    }
+
+    private void addCommandIfNotExist(String command) {
+        if (!getCommands().contains(command)) {
+            getCommands().add(command);
+        }
     }
 }
